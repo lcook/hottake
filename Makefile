@@ -25,7 +25,7 @@ CONFIG ?= ./config.example.yaml
 
 default: build
 build:
-	go build $(GO_FLAGS) -o $(PROG) cmd/$(PROG)/$(PROG).go && strip -s $(PROG)
+	go build $(GO_FLAGS) -o $(PROG) ./cmd/$(PROG)/$(PROG).go && strip -s $(PROG)
 
 clean:
 	rm -f $(PROG)
