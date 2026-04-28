@@ -1,0 +1,65 @@
+# Hottake Discord Bot Configuration Example
+# Copy this file to config.yaml and fill in your actual values
+
+# Bot settings
+bot:
+  # Discord bot token from https://discord.com/developers/applications.
+  token: your_bot_token_here
+  # Application ID from Discord developer portal.
+  application_id: your_application_id
+  # Guild (server) ID where the bot operates.
+  guild_id: your_guild_id
+
+  # Default roles that can submit suggestions (array of role IDs).
+  default_roles:
+    - role_id_1
+    - role_id_2
+  # Role ID required for submitting suggestions.
+  submitter_role_id: submitter_role_id
+  # Channel ID where suggestions will be posted.
+  suggestion_channel_id: suggestion_channel_id
+
+  # Emoji for upvoting suggestions.
+  upvote_emoji: 👍
+  # Emoji for downvoting suggestions.
+  downvote_emoji: 👎
+  # Emoji for deleting own suggestions.
+  delete_emoji: 🗑️
+
+  # Timezone for daily suggestion aggregation (e.g., "America/New_York").
+  timezone: UTC
+
+# Modal settings for suggestion forms
+modal:
+  # List of supported platforms for content suggestions.
+  platforms:
+    - name: YouTube
+      # Whether this is the default selected platform.
+      default: true 
+      # Optional proxy domain for fetching content (e.g., "fxtwitter.com" for Twitter).
+      #proxy:
+      # List of allowed domains for this platform (used for validating URLs).
+      whitelist:
+        - youtube.com
+        - youtu.be
+      # Fallback title extraction method: webpage (fetch from URL) or embed (use Discord embed).
+      #fallback:
+
+    - name: Twitter
+      proxy: fxtwitter.com
+      whitelist:
+        - twitter.com
+        - x.com
+        - fxtwitter.com
+        - xcancel.com
+
+    - name: Reddit
+      # Reddit is special case, fallback to the Discord embed if webpage fetching fails (e.g., due to rate API limits). 
+      fallback: embed
+      proxy: vxreddit.com
+      whitelist:
+        - reddit.com
+        - vxreddit.com
+
+    # Catch-all for other platforms that don't fit the above categories.
+    - name: Other
