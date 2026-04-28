@@ -1,0 +1,21 @@
+name: Build project
+on: [push, pull_request]
+
+jobs:
+  build:
+      strategy:
+        matrix:
+          go-version: [1.26]
+          os: [ubuntu-latest, macos-latest]
+      runs-on: ${{ matrix.os }}
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v6
+
+        - name: Setup go environment
+          uses: actions/setup-go@v6
+          with:
+            go-version: ${{ matrix.go-version }}
+
+        - name: Build project
+          run: go build -v ./...
