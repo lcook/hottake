@@ -14,9 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup go environment
-        uses: actions/setup-go@v6
-
       - name: Login to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | podman login --username "${{ github.actor }}" --password-stdin $OCI_REPO
 
