@@ -25,6 +25,7 @@ func New(path string) (*Bot, error) {
 		log.WithError(err).
 			WithField("file", path).
 			Error("Unable to load configuration file")
+
 		return nil, err
 	}
 

@@ -251,17 +251,6 @@ func (h *Handler) InteractionCreate(
 		suggestion.Message = msg
 		suggestion.Message.GuildID = h.Settings.Guild
 
-		if thread != "no" {
-			s.MessageThreadStartComplex(
-				h.Settings.SuggestionChannel,
-				msg.ID,
-				&discordgo.ThreadStart{
-					Name:                suggestion.Title,
-					AutoArchiveDuration: 1440,
-					Invitable:           true,
-				})
-		}
-
 		ref := fmt.Sprintf(
 			"%schannels/%s/%s/%s",
 			discordgo.EndpointDiscord,
@@ -333,6 +322,20 @@ func (h *Handler) InteractionCreate(
 					strings.TrimPrefix(suggestion.URL, "https://"),
 					"http://",
 				)
+			}
+		}
+
+		if thread != "no" {
+			_, err := s.MessageThreadStartComplex(
+				h.Settings.SuggestionChannel,
+				msg.ID,
+				&discordgo.ThreadStart{
+					Name:                suggestion.Title,
+					AutoArchiveDuration: 1440,
+					Invitable:           true,
+				})
+			if err != nil {
+				log.WithError(err).Error("Unable to create thread")
 			}
 		}
 
